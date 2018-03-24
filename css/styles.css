@@ -245,7 +245,7 @@ nav h1 a {
   font-size: 11pt;
 }
 #restaurants-list li a {
-  background-color: orange;
+  background-color: darkorange;
   border-bottom: 3px solid #eee;
   color: #fff;
   display: inline-block;
@@ -255,6 +255,11 @@ nav h1 a {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+#restaurants-list li a:hover {
+	background-color: pink;
+	color: black;
 }
 
 @media screen and (min-width: 510px) {
