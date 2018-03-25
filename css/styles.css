@@ -23,7 +23,7 @@ a {
 }
 a:hover, a:focus {
 	/* color: #3397db; */
-	color: orange;
+	/* color: orange; */
 	text-decoration: underline;
 }
 a img{
@@ -52,7 +52,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   text-transform: uppercase;
 }
 #footer a:link, #footer a:visited {
-	color: yellow;
+	color: orange;
 }
 
 /* ====================== Navigation ====================== */
@@ -233,7 +233,7 @@ nav h1 a {
   /* min-width: 100%; */
 }
 #restaurants-list li h1 {
-  color: #f18200;
+  /* color: #f18200; */
   font-family: Arial,sans-serif;
   font-size: 14pt;
   font-weight: 200;
@@ -249,7 +249,7 @@ nav h1 a {
 #restaurants-list li a {
   /* background-color: darkorange; */
   /* border-bottom: 3px solid #eee; */
-  color: darkblue;
+  color: darkorange;
   display: inline-block;
   font-size: 10pt;
   /* margin: 15px 0 0; */
@@ -260,8 +260,8 @@ nav h1 a {
 }
 
 #restaurants-list li a:hover {
-	background-color: pink;
-	color: black;
+	background-color: darkblue;
+	color: white;
 }
 
 @media screen and (min-width: 510px) {

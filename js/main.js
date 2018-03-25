@@ -164,7 +164,7 @@ createRestaurantHTML = (restaurant) => {
   picturelink.setAttribute('tabIndex', -1); // Don't tab-focus on the image, just the title
   picturelink.append(image);
   li.append(picturelink);
-  console.log("New image-element: ", picturelink);
+  // console.log("New image-element: ", picturelink);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
