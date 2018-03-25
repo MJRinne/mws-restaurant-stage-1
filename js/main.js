@@ -80,7 +80,17 @@ window.initMap = () => {
     center: loc,
     scrollwheel: false
   });
+
+  // This removes tab index for the map markers, but not for any of the default map decoration
+  // Map skipping implemented by capturing TAB-behavious instead
+  // google.maps.event.addListener(self.map, "tilesloaded", function(){
+  //   document.querySelectorAll('#map *').forEach(function(item) {
+  //     item.setAttribute('tabindex','-1');
+  //   });
+  // })
+
   updateRestaurants();
+
 }
 
 /**
@@ -174,9 +184,6 @@ createRestaurantHTML = (restaurant) => {
   // more.href = DBHelper.urlForRestaurant(restaurant);
   // li.append(more)
 
-  console.log("li: ", li);
-
-
   return li
 }
 
@@ -192,4 +199,26 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     });
     self.markers.push(marker);
   });
+}
+
+/****
+* Skip the map in tabbing *
+*/
+
+const TAB_KEY = 9;
+var beforeMap = document.querySelector('#main-header > a');
+var afterMap = document.querySelector('#neighborhoods-select');
+
+beforeMap.onkeydown = function(event) {
+   if (event.keyCode == TAB_KEY && !event.shiftKey) {
+       event.preventDefault();
+       afterMap.focus();
+   }
+};
+
+afterMap.onkeydown = function(event) {
+  if (event.keyCode == TAB_KEY && event.shiftKey) {
+      event.preventDefault();
+      beforeMap.focus();
+  }
 }

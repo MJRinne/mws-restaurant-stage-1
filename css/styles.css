@@ -39,17 +39,22 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 #maincontent {
   background-color: #f3f3f3;
-  min-height: 100%;
+	/* width: 100vw;
+  min-height: 100%; */
 }
 #footer {
-  background-color: #444;
-  color: #aaa;
-  font-size: 8pt;
+  background-color: darkblue;
+  color: #eee;
+  font-size: 1em;
   letter-spacing: 1px;
   padding: 25px;
   text-align: center;
   text-transform: uppercase;
 }
+#footer a:link, #footer a:visited {
+	color: yellow;
+}
+
 /* ====================== Navigation ====================== */
 nav {
   width: 100%;
@@ -81,7 +86,7 @@ nav h1 a {
     font-size: 17px;
     margin: 0;
     /* width: calc(50% - 80px); */
-		width: 100%;
+		/* width: 100%; */
 }
 
 /* Display list items side by side */
@@ -273,6 +278,10 @@ nav h1 a {
 
 
 /* ====================== Restaurant Details ====================== */
+.inside body {
+	width: 100vw;
+}
+
 .inside header {
   position: fixed;
   top: 0;
@@ -280,11 +289,15 @@ nav h1 a {
   z-index: 1000;
 }
 .inside #maincontent {
-	padding-top: 130px;
-	width: 100vw;
+	position: relative;
+	margin-top: 130px;
+	margin-right: 0px;
+	padding-right: 0px;
+	/* position: fixed; */
+	width: 100%;
 }
 .inside #map-container {
-  background: blue none repeat scroll 0 0;
+  /* background: blue none repeat scroll 0 0; */
 	border: 0px solid darkblue;
 
   /* height: 87%; */
@@ -302,9 +315,9 @@ nav h1 a {
   width: 100%;
 }
 .inside #footer {
-  bottom: 0;
-  position: absolute;
-  width: 100%;
+  /* bottom: 0; */
+  /* position: absolute; */
+  /* width: 94%; */
 }
 #restaurant-name {
   color: #f18200;
@@ -339,10 +352,10 @@ nav h1 a {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   padding: 10px 10px 10px;
-  width: 100%;
+  width: 95%;
 }
 #reviews-container {
-  padding: 30px 40px 80px;
+  /* padding: 30px 40px 80px; */
 }
 #reviews-container h2 {
   color: #f58500;
@@ -412,9 +425,10 @@ nav h1 a {
     margin-left: auto;
     margin-right: auto;
   }
-	#breadcrumb {
-    width: 920px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+	body,td,th,p{
+		font-size: 1.1em;
+	}
+	#restaurant-address {
+	  font-size: 1.4em;
+	}
 }
