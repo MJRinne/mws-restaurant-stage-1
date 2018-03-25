@@ -141,24 +141,41 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  // li.append(image);
+
+  const imagelink = document.createElement('a');
+  imagelink.href = DBHelper.urlForRestaurant(restaurant);
+  imagelink.setAttribute('tabIndex', -1); // Don't tab-focus on the image, just the title
+  imagelink.append(image);
+  li.append(imagelink);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
-  li.append(name);
+  // li.append(name);
+
+  const namelink = document.createElement('a');
+  namelink.href = DBHelper.urlForRestaurant(restaurant);
+  namelink.append(name);
+  li.append(namelink);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
 
-  const address = document.createElement('p');
+  const address = document.createElement('a');
   address.innerHTML = restaurant.address;
+  address.href = "#map";
   li.append(address);
 
-  const more = document.createElement('a');
-  more.innerHTML = 'View Details';
-  more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  // Restaurant title now links to more info - button is redundant
+
+  // const more = document.createElement('a');
+  // more.innerHTML = 'View Details';
+  // more.href = DBHelper.urlForRestaurant(restaurant);
+  // li.append(more)
+
+  console.log("li: ", li);
+
 
   return li
 }

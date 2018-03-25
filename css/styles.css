@@ -18,7 +18,7 @@ ul, li {
 	color: #333;
 }
 a {
-	color: orange;
+	/* color: orange; */
 	text-decoration: none;
 }
 a:hover, a:focus {
@@ -242,16 +242,16 @@ nav h1 a {
   font-size: 11pt;
 }
 #restaurants-list li a {
-  background-color: darkorange;
-  border-bottom: 3px solid #eee;
-  color: #fff;
+  /* background-color: darkorange; */
+  /* border-bottom: 3px solid #eee; */
+  color: darkblue;
   display: inline-block;
   font-size: 10pt;
-  margin: 15px 0 0;
-  padding: 8px 30px 10px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
+  /* margin: 15px 0 0; */
+  /* padding: 8px 30px 10px; */
+  text-align: left;
+  text-decoration: underline;
+  /* text-transform: uppercase; */
 }
 
 #restaurants-list li a:hover {
