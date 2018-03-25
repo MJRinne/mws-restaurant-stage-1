@@ -386,6 +386,12 @@ nav h1 a {
   color: #666;
 }
 
+#restaurant-hours caption {
+  text-align: left;
+	font-size: 1.2em;
+}
+
+
 @media screen and (min-width: 750px) {
 	#restaurant-container {
 		display: grid;
