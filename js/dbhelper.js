@@ -154,6 +154,22 @@ class DBHelper {
   }
 
   /**
+   * Small restaurant image URL.
+   */
+  static smallImageUrlForRestaurant(restaurant) {
+    let smallFile = restaurant.photograph.slice(0, -4) + '-400w' + '.jpg';
+    return (`/img_converted/${smallFile}`);
+  }
+
+
+  /**
+   * Restaurant image alt text.
+   */
+  static altTextForRestaurantImage(restaurant) {
+    return (`${restaurant.alt}`);
+  }
+
+  /**
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {

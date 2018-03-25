@@ -14,7 +14,6 @@ window.initMap = () => {
         center: restaurant.latlng,
         scrollwheel: false
       });
-      // document.getElementById('map').setAttribute('tabIndex', -1);
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
@@ -56,9 +55,15 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
+  let large_image_url = DBHelper.imageUrlForRestaurant(restaurant);
+  let small_image_url = DBHelper.smallImageUrlForRestaurant(restaurant);
+
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.src = large_image_url;
+  image.srcset = large_image_url + " 800w, " + small_image_url + " 400w";
+  image.sizes = '(max-width 509px) 90wv, 45wv'; // On the details-page a two-column view is the smallest
+  image.alt = DBHelper.altTextForRestaurantImage(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;

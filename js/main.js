@@ -148,16 +148,23 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  let large_image_url = DBHelper.imageUrlForRestaurant(restaurant);
+  let small_image_url = DBHelper.smallImageUrlForRestaurant(restaurant);
+
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.src = large_image_url;
+  image.srcset = large_image_url + " 800w, " + small_image_url + " 400w";
+  image.sizes = '(max-width 509px) 90wv, 45wv'; // On the details-page a two-column view is the smallest
+  image.alt = DBHelper.altTextForRestaurantImage(restaurant);
   // li.append(image);
 
-  const imagelink = document.createElement('a');
-  imagelink.href = DBHelper.urlForRestaurant(restaurant);
-  imagelink.setAttribute('tabIndex', -1); // Don't tab-focus on the image, just the title
-  imagelink.append(image);
-  li.append(imagelink);
+  const picturelink = document.createElement('a');
+  picturelink.href = DBHelper.urlForRestaurant(restaurant);
+  picturelink.setAttribute('tabIndex', -1); // Don't tab-focus on the image, just the title
+  picturelink.append(image);
+  li.append(picturelink);
+  console.log("New image-element: ", picturelink);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
