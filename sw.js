@@ -18,6 +18,7 @@ self.addEventListener('install', function(event) {
           '/',
           'index.html',
           'restaurant.html',
+          'config.js',
           'css/common.css',
           'css/index.css',
           'css/restaurant.css',
