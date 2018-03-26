@@ -82,7 +82,7 @@ window.initMap = () => {
   });
 
   // This removes tab index for the map markers, but not for any of the default map decoration
-  // Map skipping implemented by capturing TAB-behavious instead
+  // Map skipping implemented by capturing TAB-behavious instead, keeping the code here for future reference
   // google.maps.event.addListener(self.map, "tilesloaded", function(){
   //   document.querySelectorAll('#map *').forEach(function(item) {
   //     item.setAttribute('tabindex','-1');
@@ -212,7 +212,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 /****
-* Skip the map in tabbing *
+* Skip the map during tabbing *
 */
 
 const TAB_KEY = 9;

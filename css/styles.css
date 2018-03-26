@@ -18,17 +18,13 @@ ul, li {
 	color: #333;
 }
 a {
-	/* color: orange; */
 	text-decoration: none;
 }
 a:hover, a:focus {
-	/* color: #3397db; */
-	/* color: orange; */
 	text-decoration: underline;
 }
 a img{
 	border: none 0px #fff;
-	/* border: solid 2px #000; */
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: Arial, Helvetica, sans-serif;
@@ -39,8 +35,6 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 #maincontent {
   background-color: #f3f3f3;
-	/* width: 100vw;
-  min-height: 100%; */
 }
 #footer {
   background-color: darkblue;
@@ -60,13 +54,10 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 nav {
   width: 100%;
   height: 80px;
-  /* background-color: #252831; */
 	background-color: darkblue;
   text-align:center;
-	/* vertical-align: text-bottom; */
 }
 nav h1 {
-  /* margin: auto; */
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
@@ -78,7 +69,6 @@ nav h1 a {
 	font-style: bold;
   letter-spacing: 10px;
 	line-height: 1.3em;
-  /* text-transform: uppercase; */
 }
 #breadcrumb {
     padding: 10px 40px 16px;
@@ -86,8 +76,6 @@ nav h1 a {
     background-color: #eee;
     font-size: 17px;
     margin: 0;
-    /* width: calc(50% - 80px); */
-		/* width: 100%; */
 }
 
 /* Display list items side by side */
@@ -115,7 +103,6 @@ nav h1 a {
 }
 /* ====================== Map ====================== */
 #map {
-  /* height: 400px; */
 	height: 40vh;
   width: 100%;
   background-color: #ccc;
@@ -142,7 +129,6 @@ nav h1 a {
 .filter-options {
   width: 100%;
   height: 80px;
-  /* background-color: #3397DB; */
 	background-color: darkblue;
   align-items: center;
 }
@@ -163,7 +149,6 @@ nav h1 a {
   letter-spacing: 0;
   margin: 10px;
   padding: 0 10px;
-  /* width: 200px; */
 	width: 40%;
 }
 
@@ -205,8 +190,6 @@ nav h1 a {
   background-color: #f3f3f3;
   list-style: outside none none;
   margin: 0;
-  /* padding: 30px 15px 30px; */
-  /* text-align: center; */
 	display: flex;
 	flex-wrap: wrap;
 	padding-left: 0px;
@@ -218,10 +201,8 @@ nav h1 a {
   border: 2px solid #ccc;
   font-family: Arial,sans-serif;
   margin: 15px;
-  /* min-height: 380px; */
   padding: 0 30px 25px;
   text-align: left;
-  /* width: 270px; */
 	width: 90%;
 }
 #restaurants-list .restaurant-img {
@@ -229,12 +210,8 @@ nav h1 a {
   display: block;
   margin: 0;
 	width: 100%;
-  /* max-width: 100%; */
-  /* min-height: 248px; */
-  /* min-width: 100%; */
 }
 #restaurants-list li h1 {
-  /* color: #f18200; */
   font-family: Arial,sans-serif;
   font-size: 14pt;
   font-weight: 200;
@@ -248,16 +225,11 @@ nav h1 a {
   font-size: 11pt;
 }
 #restaurants-list li a {
-  /* background-color: darkorange; */
-  /* border-bottom: 3px solid #eee; */
   color: darkorange;
   display: inline-block;
   font-size: 10pt;
-  /* margin: 15px 0 0; */
-  /* padding: 8px 30px 10px; */
   text-align: left;
   text-decoration: underline;
-  /* text-transform: uppercase; */
 }
 
 #restaurants-list li a:hover {
@@ -298,14 +270,7 @@ nav h1 a {
 	width: 100%;
 }
 .inside #map-container {
-  /* background: blue none repeat scroll 0 0; */
 	border: 0px solid darkblue;
-
-  /* height: 87%; */
-  /* position: fixed; */
-	/* position: absolute; */
-  /* right: 0; */
-  /* top: 80px; */
   width: 90%;
 	height: 20vh;
 }
@@ -316,9 +281,6 @@ nav h1 a {
   width: 100%;
 }
 .inside #footer {
-  /* bottom: 0; */
-  /* position: absolute; */
-  /* width: 94%; */
 }
 #restaurant-name {
   color: #f18200;
@@ -331,7 +293,6 @@ nav h1 a {
   line-height: 1.1;
 }
 #restaurant-img {
-	/* width: 90%; */
 	display: none;
 }
 #restaurant-address {

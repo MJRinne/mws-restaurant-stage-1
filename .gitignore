@@ -2,3 +2,5 @@ config.js
 .DS_Store
 Gruntfile.js
 node_modules/*
+package-lock.json
+package.json
