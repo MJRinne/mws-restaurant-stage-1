@@ -5,7 +5,8 @@
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/restaurant.css" type="text/css">
   <title>Restaurant Info</title>
 </head>
 
@@ -17,7 +18,7 @@
       <h1><a href="/" tabindex=-1>Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
+    <ul id="breadcrumb" class="breadcrumb" >
       <li><a href="/">Home</a></li>
     </ul>
     <!-- End breadcrumb -->
@@ -26,33 +27,33 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main id="maincontent">
+  <main role="main">
     <!-- Beginning map -->
     <!-- <section id="map-container">
       <div id="map"></div>
     </section> -->
     <!-- End map -->
     <!-- Beginning restaurant -->
-    <section id="restaurant-container">
-      <section id="map-container">
-        <div id="map" role="application"></div>
+    <section class="restaurant-container">
+      <section class="map-container">
+        <div id="map" class="map" role="application"></div>
       </section>
-      <div id="restaurant-details-1">
-        <h1 id="restaurant-name"></h1>
-        <img id="restaurant-img">
-        <p id="restaurant-cuisine"></p>
+      <div class="restaurant-details-1">
+        <h1 id="restaurant-name" class="restaurant-name"></h1>
+        <img id="restaurant-img" class="restaurant-img">
+        <p id="restaurant-cuisine" class="restaurant-cuisine"></p>
       </div>
-      <div id="restaurant-details-2">
-        <p id="restaurant-address"></p>
-        <table id="restaurant-hours">
+      <div class="restaurant-details-2">
+        <p id="restaurant-address" class="restaurant-address"></p>
+        <table id="restaurant-hours" class="restaurant-hours">
           <caption>Opening hours</caption>
         </table>
       </div>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
-    <section id="reviews-container">
-      <ul id="reviews-list"></ul>
+    <section id="reviews-container" class="reviews-container">
+      <ul id="reviews-list" class="reviews-list"></ul>
     </section>
     <!-- End reviews -->
   </main>
