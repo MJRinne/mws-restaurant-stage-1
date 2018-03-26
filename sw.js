@@ -20,6 +20,7 @@ self.addEventListener('install', function(event) {
           'restaurant.html',
           'css/styles.css',
           'js/dbhelper.js',
+          'js/swhelper.js',
           'js/main.js',
           'js/restaurant_info.js',
           'img/',
