@@ -40,14 +40,15 @@
 
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/swhelper.js"></script>
   <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script> -->
-  <script src="config.js"></script>
+  <script type="application/javascript" charset="utf-8" src="config.js"></script>
   <script>
-  var gmaps = document.createElement('script');
-  gmaps.src = "https://maps.googleapis.com/maps/api/js?key="+google_maps_api_key+"&libraries=places&callback=initMap";
-  gmaps.setAttribute('defer','');
-  gmaps.setAttribute('async','');
-  document.getElementsByTagName("head")[0].appendChild(gmaps);
+    var gmaps = document.createElement('script');
+    gmaps.src = "https://maps.googleapis.com/maps/api/js?key="+google_maps_api_key+"&libraries=places&callback=initMap";
+    gmaps.setAttribute('defer','');
+    gmaps.setAttribute('async','');
+    document.getElementsByTagName("head")[0].appendChild(gmaps);
   </script>
 
   <footer id="footer">

@@ -331,7 +331,8 @@ nav h1 a {
   line-height: 1.1;
 }
 #restaurant-img {
-	width: 90%;
+	/* width: 90%; */
+	display: none;
 }
 #restaurant-address {
   font-size: 12pt;
@@ -423,6 +424,10 @@ nav h1 a {
 	}
 	#reviews-list li {
 		width: 40%;
+	}
+	#restaurant-img {
+		width: 90%;
+		display: block;
 	}
 }
 
