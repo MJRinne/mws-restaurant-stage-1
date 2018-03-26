@@ -53,6 +53,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 #footer a:link, #footer a:visited {
 	color: orange;
+	text-decoration: underline;
 }
 
 /* ====================== Navigation ====================== */
