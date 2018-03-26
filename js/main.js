@@ -216,8 +216,8 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 */
 
 const TAB_KEY = 9;
-var beforeMap = document.querySelector('#main-header > a');
-var afterMap = document.querySelector('#neighborhoods-select');
+const beforeMap = document.querySelector('#main-header > a');
+const afterMap = document.querySelector('#neighborhoods-select');
 
 beforeMap.onkeydown = function(event) {
    if (event.keyCode == TAB_KEY && !event.shiftKey) {

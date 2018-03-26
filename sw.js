@@ -5,7 +5,7 @@
  * https://developers.google.com/web/fundamentals/primers/service-workers/
  *********/
 
-var currentCacheName = 'restaurants-cache-v1';
+const currentCacheName = 'restaurants-cache-v1';
 
 // Cache install
 
