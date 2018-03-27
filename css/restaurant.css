@@ -174,13 +174,6 @@ main {
 }
 
 @media screen and (min-width: 1000px) {
-  body,
-	header,
-	main {
-    width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 	body,
 	td,
 	th,
@@ -190,4 +183,14 @@ main {
 	.restaurant-address {
 	  font-size: 1.4em;
 	}
+}
+
+@media screen and (min-width: 1920px) {
+  body,
+	header,
+	main {
+    width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

@@ -150,8 +150,18 @@
 }
 
 @media screen and (min-width: 1000px) {
+	.filter-options-container {
+		width: 400px;
+	}
+	.map-container {
+		width: calc(100% - 420px);
+	}
+}
+
+
+@media screen and (min-width: 1920px) {
   body {
-    width: 1000px;
+    width: 1920px;
     margin-left: auto;
     margin-right: auto;
   }
