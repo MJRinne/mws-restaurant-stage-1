@@ -80,6 +80,7 @@ nav {
   text-align:center;
 }
 nav h1 {
+	/* height: 80px; */
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);

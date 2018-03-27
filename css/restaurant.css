@@ -1,11 +1,16 @@
 @charset "utf-8";
 /* CSS for restaurant.html */
 
+.h1-container {
+  height: 80px;
+}
+
 .breadcrumb {
-    padding: 10px 40px 16px;
+    padding: 10px 20px 16px;
     list-style: none;
     background-color: #eee;
     font-size: 17px;
+    text-align: left;
     margin: 0;
 }
 
