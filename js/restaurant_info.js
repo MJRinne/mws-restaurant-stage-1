@@ -169,3 +169,25 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/****
+* Skip the map during tabbing *
+*/
+
+const TAB_KEY = 9;
+const beforeMap = document.querySelector('#breadcrumb-link');
+const afterMap = document.querySelector('#footer-link');
+
+beforeMap.onkeydown = function(event) {
+   if (event.keyCode == TAB_KEY && !event.shiftKey) {
+       event.preventDefault();
+       afterMap.focus();
+   }
+};
+
+afterMap.onkeydown = function(event) {
+  if (event.keyCode == TAB_KEY && event.shiftKey) {
+      event.preventDefault();
+      beforeMap.focus();
+  }
+}
