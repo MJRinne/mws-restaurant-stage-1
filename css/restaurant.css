@@ -75,7 +75,8 @@ main {
   line-height: 1.1;
 }
 .restaurant-img {
-	display: none;
+  width: 90%;
+  display: block;
 }
 .restaurant-address {
   font-size: 12pt;
@@ -166,10 +167,6 @@ main {
 	}
 	.reviews-list li {
 		width: 40%;
-	}
-	.restaurant-img {
-		width: 90%;
-		display: block;
 	}
 }
 
