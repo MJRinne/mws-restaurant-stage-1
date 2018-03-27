@@ -180,6 +180,9 @@ main {
 	p {
 		font-size: 1.1em;
 	}
+  .reviews-list li {
+    font-size: 1.2em;
+  }
 	.restaurant-address {
 	  font-size: 1.4em;
 	}
