@@ -27,18 +27,20 @@ self.addEventListener('install', function(event) {
           'js/main.js',
           'js/restaurant_info.js',
           'img/',
-          'img_converted/',
-          'data/restaurants.json',
-          'restaurant.html?id=1',
-          'restaurant.html?id=2',
-          'restaurant.html?id=3',
-          'restaurant.html?id=4',
-          'restaurant.html?id=5',
-          'restaurant.html?id=6',
-          'restaurant.html?id=7',
-          'restaurant.html?id=8',
-          'restaurant.html?id=9',
-          'restaurant.html?id=10']);
+          'img_converted/'
+          // ,
+          // 'data/restaurants.json',
+          // 'restaurant.html?id=1',
+          // 'restaurant.html?id=2',
+          // 'restaurant.html?id=3',
+          // 'restaurant.html?id=4',
+          // 'restaurant.html?id=5',
+          // 'restaurant.html?id=6',
+          // 'restaurant.html?id=7',
+          // 'restaurant.html?id=8',
+          // 'restaurant.html?id=9',
+          // 'restaurant.html?id=10'
+        ]);
       })
   );
 });
@@ -67,10 +69,17 @@ self.addEventListener('fetch', function(event) {
     caches.match(event.request)
       .then(function(response) {
         if (response) {
-          console.log("Cache hit - returning response: ", response);
+          // console.log("Cache hit - returning response: ", response);
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).then(function(response) {
+          // console.log("Adding to cache: ", response);
+          let responseCopy = response.clone();
+          caches.open(currentCacheName).then(function(cache) {
+            cache.put(event.request, responseCopy);
+          });
+          return response;
+        });
       }
     )
   );
