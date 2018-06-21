@@ -2,7 +2,7 @@
 ---
 ## Overview
 
-This repository contains my project work for [Udacity's](https://eu.udacity.com/) Mobile Web Specialist Certification Course. The master-branch currently contains my submitted code for phase 1 review of the project.
+This repository contains my project work for [Udacity's](https://eu.udacity.com/) Mobile Web Specialist Certification Course. The master-branch currently contains my code for phase 2 review of the project.
 
 ## Inserting the Google Maps API key
 
