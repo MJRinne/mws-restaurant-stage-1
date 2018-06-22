@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="PWA-Skeleton">
-  <meta name="theme-color" content="darkblue">  
+  <meta name="theme-color" content="darkblue">
 </head>
 
 <body>
@@ -33,10 +33,10 @@
       <section class="filter-options-container">
         <div class="filter-options">
           <h2>Filter Results</h2>
-          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="select neighbourhood">
             <option value="all">All Neighborhoods</option>
           </select>
-          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="select cuisine">
             <option value="all">All Cuisines</option>
           </select>
         </div>

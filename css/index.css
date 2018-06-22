@@ -80,7 +80,8 @@
   font-size: 11pt;
 }
 .restaurants-list li a {
-  color: darkorange;
+  /* color: darkorange; */
+	color: darkred;
   display: inline-block;
   font-size: 10pt;
   text-align: left;
