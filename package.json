@@ -1,0 +1,35 @@
+{
+  "name": "mws-restaurant-stage-1",
+  "version": "1.1.0",
+  "description": "--- #### _Three Stage Course Material Project - Restaurant Reviews_",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt-responsive-images": "^1.10.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "grunt": "^1.0.2",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-inject": "^4.3.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uglify-es": "^1.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MJRinne/mws-restaurant-stage-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MJRinne/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/MJRinne/mws-restaurant-stage-1#readme"
+}

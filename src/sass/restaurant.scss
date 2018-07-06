@@ -54,17 +54,27 @@ main {
 	padding-right: 0px;
 	width: 100%;
 }
-.map-container {
-	border: 0px solid darkblue;
-  width: 100%;
-	height: 20vh;
-}
+
 .map {
   background-color: #ccc;
   height: 100%;
 	align: left;
   width: 100%;
 }
+
+.map-container {
+	border: 0px solid darkblue;
+  width: 100%;
+	height: 20vh;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#map-container-label {
+	font-size: 2em;
+	display: inline-block;
+}
+
 /* .inside #footer {
 } */
 .restaurant-name {

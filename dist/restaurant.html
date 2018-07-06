@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Normalize.css for better cross-browser consistency -->
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <!-- Main CSS file -->
+  <link rel="stylesheet" href="css/restaurant.css" type="text/css">
+  <title>Restaurant Info</title>
+  <!-- manifest json linking -->
+  <link rel="manifest" href="manifest.json">
+  <!-- apple mobile support meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PWA-Skeleton">
+  <meta name="theme-color" content="darkblue">
+</head>
+
+<body class="inside">
+  <!-- Beginning header -->
+  <header>
+    <!-- Beginning nav -->
+    <nav>
+      <div class="h1-container">
+        <h1><a href="/">Restaurant Reviews</a></h1>
+      </div>
+      <!-- Beginning breadcrumb -->
+      <ul id="breadcrumb" class="breadcrumb" >
+        <li><a id="breadcrumb-link" href="/">Home</a></li>
+      </ul>
+      <!-- End breadcrumb -->
+    </nav>
+    <!-- End nav -->
+  </header>
+  <!-- End header -->
+
+  <!-- Beginning main -->
+  <main role="main">
+    <!-- Beginning map -->
+    <!-- <section id="map-container">
+      <div id="map"></div>
+    </section> -->
+    <!-- End map -->
+    <!-- Beginning restaurant -->
+    <section class="restaurant-container">
+      <section class="map-container">
+        <div id="map" class="map" role="application">
+          <p id="map-container-label">Point here to initialize the map!</p>
+        </div>
+      </section>
+      <div class="restaurant-details-1">
+        <h1 id="restaurant-name" class="restaurant-name"></h1>
+        <img id="restaurant-img" class="restaurant-img">
+        <p id="restaurant-cuisine" class="restaurant-cuisine"></p>
+      </div>
+      <div class="restaurant-details-2">
+        <p id="restaurant-address" class="restaurant-address"></p>
+        <table id="restaurant-hours" class="restaurant-hours">
+          <caption>Opening hours</caption>
+        </table>
+      </div>
+    </section>
+    <!-- end restaurant -->
+    <!-- Beginning reviews -->
+    <section id="reviews-container" class="reviews-container">
+      <ul id="reviews-list" class="reviews-list"></ul>
+    </section>
+    <!-- End reviews -->
+  </main>
+  <!-- End main -->
+
+  <!-- Beginning footer -->
+  <footer id="footer">
+    Copyright (c) 2017 <a id="footer-link" href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  </footer>
+  <!-- End footer -->
+
+  <!-- Beginning scripts -->
+  <script type="text/javascript" src="js/restaurant.js"></script>
+  <script type="application/javascript" charset="utf-8" src="config.js"></script>
+  <script>
+    const gmaps = document.createElement('script');
+    gmaps.src = "https://maps.googleapis.com/maps/api/js?key="+google_maps_api_key+"&libraries=places"; // &callback=initMap
+    gmaps.setAttribute('defer','');
+    gmaps.setAttribute('async','');
+    document.getElementsByTagName("head")[0].appendChild(gmaps);
+  </script>
+
+  <!-- End scripts -->
+
+</body>
+
+</html>

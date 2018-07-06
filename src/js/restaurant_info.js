@@ -1,29 +1,57 @@
 let restaurant;
 var map;
 
-/**
- * Initialize Google map, called from HTML.
- */
-window.initMap = () => {
+document.addEventListener('DOMContentLoaded', (event) => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false
-      });
       fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
+});
+
+/**
+ * Initialize Google map, called from HTML.
+ */
+ // window.
+// const initMap = () => {
+//   fetchRestaurantFromURL((error, restaurant) => {
+//     if (error) { // Got an error!
+//       console.error(error);
+//     } else {
+//       self.map = new google.maps.Map(document.getElementById('map'), {
+//         zoom: 16,
+//         center: restaurant.latlng,
+//         scrollwheel: false
+//       });
+//       fillBreadcrumb();
+//       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+//     }
+//   });
+// }
+
+/**
+ * Initialize Google map when pointed at
+ */
+
+const onMap = document.querySelector('#map');
+
+onMap.onmouseover = function(event) {
+  if (self.map == undefined) {
+    self.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: self.restaurant.latlng,
+      scrollwheel: false
+    });
+    DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+  }
 }
 
 /**
  * Get current restaurant from page URL.
  */
-fetchRestaurantFromURL = (callback) => {
+const fetchRestaurantFromURL = (callback) => {
   if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant)
     return;
@@ -48,7 +76,7 @@ fetchRestaurantFromURL = (callback) => {
 /**
  * Create restaurant HTML and add it to the webpage
  */
-fillRestaurantHTML = (restaurant = self.restaurant) => {
+const fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
@@ -79,7 +107,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
-fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
+const fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
     const row = document.createElement('tr');
@@ -99,7 +127,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
@@ -121,7 +149,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = (review) => {
+const createReviewHTML = (review) => {
   const li = document.createElement('li');
   const name = document.createElement('p');
   name.innerHTML = review.name;
@@ -147,7 +175,7 @@ createReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+const fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
@@ -157,7 +185,7 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
 /**
  * Get a parameter by name from page URL.
  */
-getParameterByName = (name, url) => {
+const getParameterByName = (name, url) => {
   if (!url)
     url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
@@ -174,20 +202,20 @@ getParameterByName = (name, url) => {
 * Skip the map during tabbing *
 */
 
-const TAB_KEY = 9;
-const beforeMap = document.querySelector('#breadcrumb-link');
-const afterMap = document.querySelector('#footer-link');
+const resTAB_KEY = 9;
+const resBeforeMap = document.querySelector('#breadcrumb-link');
+const resAfterMap = document.querySelector('#footer-link');
 
-beforeMap.onkeydown = function(event) {
+resBeforeMap.onkeydown = function(event) {
    if (event.keyCode == TAB_KEY && !event.shiftKey) {
        event.preventDefault();
-       afterMap.focus();
+       resAfterMap.focus();
    }
 };
 
-afterMap.onkeydown = function(event) {
+resAfterMap.onkeydown = function(event) {
   if (event.keyCode == TAB_KEY && event.shiftKey) {
       event.preventDefault();
-      beforeMap.focus();
+      resBeforeMap.focus();
   }
 }

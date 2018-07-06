@@ -47,7 +47,9 @@
     <!-- Beginning restaurant -->
     <section class="restaurant-container">
       <section class="map-container">
-        <div id="map" class="map" role="application"></div>
+        <div id="map" class="map" role="application">
+          <p id="map-container-label">Point here to initialize the map!</p>
+        </div>
       </section>
       <div class="restaurant-details-1">
         <h1 id="restaurant-name" class="restaurant-name"></h1>
@@ -86,7 +88,7 @@
   <script type="application/javascript" charset="utf-8" src="config.js"></script>
   <script>
     const gmaps = document.createElement('script');
-    gmaps.src = "https://maps.googleapis.com/maps/api/js?key="+google_maps_api_key+"&libraries=places&callback=initMap";
+    gmaps.src = "https://maps.googleapis.com/maps/api/js?key="+google_maps_api_key+"&libraries=places"; // &callback=initMap
     gmaps.setAttribute('defer','');
     gmaps.setAttribute('async','');
     document.getElementsByTagName("head")[0].appendChild(gmaps);
