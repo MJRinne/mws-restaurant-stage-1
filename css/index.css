@@ -10,6 +10,13 @@
 
 .map-container {
 	border: 10px solid darkblue;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#map-container-label {
+	font-size: 2em;
+	display: inline-block;
 }
 
 /* ====================== Restaurant Filtering ====================== */

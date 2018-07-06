@@ -10,6 +10,7 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+  updateRestaurants();
 });
 
 /**
@@ -67,10 +68,31 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
   });
 }
 
-/**
- * Initialize Google map, called from HTML.
- */
-window.initMap = () => {
+// /**
+//  * Initialize Google map, called from HTML.
+//  */
+// drawStaticMap = () => {
+//   let loc = {
+//     lat: 40.722216,
+//     lng: -73.987501
+//   };
+//   document.getElementById('main-map-image').src = "https://maps.googleapis.com/maps/api/staticmap?center=37.687,-122.407&zoom=12&size=450x300&maptype=roadmap&key="+google_maps_api_key+"&sensor=false"
+//
+//   // self.map = new google.maps.Map(document.getElementById('map'), {
+//   //   zoom: 12,
+//   //   center: loc,
+//   //   scrollwheel: false
+//   // });
+//
+//   // updateRestaurants();
+//
+// }
+
+
+// /**
+//  * Initialize Google map, called from HTML.
+//  */
+initMap = () => {
   let loc = {
     lat: 40.722216,
     lng: -73.987501
@@ -88,8 +110,6 @@ window.initMap = () => {
   //     item.setAttribute('tabindex','-1');
   //   });
   // })
-
-  updateRestaurants();
 
 }
 
@@ -139,7 +159,9 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
-  addMarkersToMap();
+  if (self.map != undefined) {
+    addMarkersToMap();
+  }
 }
 
 /**
@@ -230,5 +252,18 @@ afterMap.onkeydown = function(event) {
   if (event.keyCode == TAB_KEY && event.shiftKey) {
       event.preventDefault();
       beforeMap.focus();
+  }
+}
+
+/****
+* Sense hovering over the map *
+*/
+
+const onMap = document.querySelector('#map');
+
+onMap.onmouseover = function(event) {
+  if (self.map == undefined) {
+    initMap();
+    addMarkersToMap();
   }
 }
