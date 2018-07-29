@@ -448,6 +448,75 @@ class DBHelper {
     })
   }
 
+  /**
+   * PUT restaurant favorite status
+   */
+  static putRestaurantFavorite(id, newState, callback) {
+    // Open or generate db
+    let dbPromise = idb.open('restaurantIDB', 1, function (upgradeDb) {
+      switch (upgradeDb.oldVersion) {
+        case 0:
+          const restaurantStore = upgradeDb.createObjectStore('restaurants', {
+            keyPath: 'id'
+          });
+          const masterStore = upgradeDb.createObjectStore('master');
+      }
+    })
+    console.log("DB open, about to fetch restaurant: ", id);
+    // Try to get our restaurant from the db:
+    dbPromise.then(db => {
+      return db.transaction('restaurants')
+        .objectStore('restaurants').get(parseInt(id));
+    }).then(obj => {
+      console.log("get id from db returned: ", obj);
+      if (obj === undefined) {
+        // Failed to find restaurant {id} from the db => get it from server
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', DBHelper.DATABASE_URL + `/${id}`);
+        xhr.onload = () => {
+          if (xhr.status === 200) { // Got a success response from server!
+            restaurant = JSON.parse(xhr.responseText);
+            restaurant.is_favorite = newState;
+            // Add also to IDB
+            dbPromise.then(db => {
+              const tx = db.transaction('restaurants','readwrite');
+              const restaurantStore = tx.objectStore('restaurants');
+              restaurantStore.put(restaurant);
+              return restaurantStore.complete;
+            });
+          } else { // Oops!. Got an error from server.
+            const error = (`Request failed. Not in db, cannot reach server. Returned status of ${xhr.status}`);
+            console.error(error);
+          }
+        };
+        xhr.send();
+      } else { // We have the object in IDB - just change the state
+        obj.is_favorite = newState;
+        dbPromise.then(db => {
+          const tx = db.transaction('restaurants','readwrite');
+          const restaurantStore = tx.objectStore('restaurants');
+          console.log("putting obj to db: ", obj);
+          restaurantStore.put(obj);
+          return restaurantStore.complete;
+        }).catch(function(err) {
+          console.log('changing is_favorite to indexed_db failed, returned:', err)
+        });
+      }
+      let xhr = new XMLHttpRequest();
+      xhr.open('PUT', DBHelper.DATABASE_URL + `/${id}/?is_favorite=${newState}`);
+      xhr.onload = () => {
+        if (xhr.status === 200) { // Got a success response from server!
+          console.log("Updated is_favorite PUT successful.");
+        } else { // Oops!. Got an error from server.
+          const error = (`is_favorite PUT request failed. Returned status of ${xhr.status}`);
+          console.error(error);
+        }
+      };
+      xhr.send();
+    })
+  }
+
+
 
   /**
    * Fetch restaurants by a cuisine type with proper error handling.

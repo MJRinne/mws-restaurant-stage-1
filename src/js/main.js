@@ -197,6 +197,36 @@ const createRestaurantHTML = (restaurant) => {
   namelink.append(name);
   li.append(namelink);
 
+  // Button creation: https://stackoverflow.com/a/22968948/5528498
+  // Aria references:
+  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role
+  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute
+  const favorite = document.createElement('input');
+  favorite.type = 'button';
+  favorite.name = restaurant.id;
+  favorite.setAttribute("aria-label", `is ${restaurant.name} a favorite`);
+  console.log("Creating favorite 6 for restaurant ", restaurant.id, " is favorite ", restaurant.is_favorite);
+  if (restaurant.is_favorite == 'true') {
+    favorite.value = '♥';
+    favorite.setAttribute("aria-pressed", true);
+  } else {
+    favorite.value = '♡';
+    favorite.setAttribute("aria-pressed", false);
+  }
+  favorite.addEventListener('click', function() {
+    let newState = false;
+    if (this.value == '♥') {
+      this.value = '♡';
+    } else if (this.value == '♡') {
+      this.value = '♥';
+      newState = true;
+    }
+    this.setAttribute("aria-pressed", newState);
+    DBHelper.putRestaurantFavorite(this.name, newState);
+  }, false);
+  console.log("Appending favorite: ", favorite);
+  li.append(favorite)
+
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
