@@ -715,12 +715,12 @@ class DBHelper {
                DBHelper.reSyncReviews(review.restaurant_id);
              })
              .catch(error => {
-               console.log('Posting of offline reviews failed (still offline?) code: ', error);
+               // console.log('Posting of offline reviews failed (still offline?) code: ', error);
                reject(error);
              });
            })
          ).then(obj => {
-           console.log("Everything done now: ", obj);
+           // console.log("Everything done now: ", obj);
          });
        });
      });
