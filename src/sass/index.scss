@@ -100,6 +100,26 @@
 	color: white;
 }
 
+/* ====================== (Favorite) buttons ====================== */
+
+input {
+    background-color: black;
+    color: hotpink;
+		font-size: 1.4em;
+    padding: 2px 6px;
+    margin: 0 0 0 0.5em;
+		float: right;
+    display: inline-block;
+    border: none;
+    border-radius: 12px;
+    opacity: 0.9;
+}
+
+input:hover {
+    opacity:1;
+}
+
+
 /* ====================== Media queries ====================== */
 
 @media screen and (max-height: 340px) {

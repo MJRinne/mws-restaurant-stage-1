@@ -62,6 +62,12 @@ gulp.task('scripts-restaurant', function() {
 		.pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('scripts-dbhelper', function() {
+	return gulp.src('src/js/**/dbhelper.js')
+		.pipe(uglify())
+		.pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('styles-src', function() {
 	return gulp.src('src/sass/**/*.scss')
 		.pipe(sass().on('error', sass.logError))
@@ -141,6 +147,7 @@ gulp.task('copy-img-converted-root', function() {
 
 gulp.task('to-dist', gulp.series('scripts-index',
 'scripts-restaurant',
+'scripts-dbhelper',
 'styles-index',
 'styles-restaurant'));
 

@@ -65,6 +65,36 @@
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
+    <!-- Review form based on: https://www.w3schools.com/howto/howto_css_signup_form.asp -->
+    <!-- Open review form -->
+    <div class="new-review-button-container">
+      <button class="postrevbtn" onclick="document.getElementById('review-form').style.display='block'">New Review</button>
+    </div>
+
+    <!-- The Modal (contains the Sign Up form) -->
+    <div id="review-form" class="modal">
+      <span onclick="document.getElementById('review-form').style.display='none'" class="close" title="Close Review Form">&times;</span>
+      <form class="modal-content" action="javascript:submitReview();">
+        <div class="new-review-container">
+          <h1>Submit Review</h1>
+          <p>Please fill in the fields below to submit a new review.</p>
+          <hr>
+          <label for="reviewer_name"><b>Your Name</b></label><br>
+          <input type="text" placeholder="John Doe" name="reviewer-name" id="new-name" required>
+
+          <br><label for="rating"><b>Rating (1-5)</b></label><br>
+          <input type="text" placeholder="3" name="restaurant-rating" id="new-rating" required>
+
+          <br><label for="restaurant_comments"><b>Comments</b></label><br>
+          <input type="text" placeholder="Hot salad!" name="restaurant-comments" id="new-comments" required>
+
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('review-form').style.display='none'" class="cancelbtn">Cancel</button>
+            <button type="submit" class="submitbtn">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
     <section id="reviews-container" class="reviews-container">
       <ul id="reviews-list" class="reviews-list"></ul>
     </section>

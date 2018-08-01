@@ -205,7 +205,7 @@ const createRestaurantHTML = (restaurant) => {
   favorite.type = 'button';
   favorite.name = restaurant.id;
   favorite.setAttribute("aria-label", `is ${restaurant.name} a favorite`);
-  console.log("Creating favorite 6 for restaurant ", restaurant.id, " is favorite ", restaurant.is_favorite);
+  // console.log("Creating favorite 6 for restaurant ", restaurant.id, " is favorite ", restaurant.is_favorite);
   if (restaurant.is_favorite == 'true') {
     favorite.value = '♥';
     favorite.setAttribute("aria-pressed", true);
@@ -224,7 +224,7 @@ const createRestaurantHTML = (restaurant) => {
     this.setAttribute("aria-pressed", newState);
     DBHelper.putRestaurantFavorite(this.name, newState);
   }, false);
-  console.log("Appending favorite: ", favorite);
+  // console.log("Appending favorite: ", favorite);
   li.append(favorite)
 
   const neighborhood = document.createElement('p');

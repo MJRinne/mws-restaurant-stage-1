@@ -157,7 +157,7 @@ const createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  date.innerHTML = new Date(review.updatedAt).toString();
   date.setAttribute('aria-label', 'review date ' + review.date);
   li.appendChild(date);
 
@@ -196,6 +196,28 @@ const getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+/**
+ * Submit the review form
+ */
+const submitReview = () => {
+  // Hide the form
+  document.getElementById('review-form').style.display='none';
+  const newReview = {
+    "restaurant_id": self.restaurant.id,
+    "name": document.getElementById("new-name").value,
+    "rating": parseInt(document.getElementById("new-rating").value),
+    "comments": document.getElementById("new-comments").value
+  };
+  // Post review on-screen
+  const ul = document.getElementById('reviews-list');
+  let directReview = Object.assign({}, newReview);
+  directReview["updatedAt"] = new Date();
+  // console.log("DirectReview element: ", directReview);
+  ul.appendChild(createReviewHTML(directReview));
+  // Post to IDB and try server
+  DBHelper.postReview(newReview);
 }
 
 /****

@@ -1,0 +1,29 @@
+{
+  "name": "Restaurant reviews",
+  "short_name": "RestRev",
+  "scope": "/",
+  "background_color": "darkblue",
+  "theme_color": "darkblue",
+  "description": "This application displays restaurant reviews from a database.",
+  "dir": "ltr",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/icons/resticon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/resticon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/resticon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "/"
+}

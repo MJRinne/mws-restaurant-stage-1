@@ -341,21 +341,29 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
-  /**
-   * Fetch all restaurants.
-   */
-  static fetchRestaurants(callback) {
-    // Open or generate db
-    const dbPromise = idb.open('restaurantIDB', 1, function (upgradeDb) {
+  static openIDB() {
+    return idb.open('restaurantIDB', 1, function (upgradeDb) {
       switch (upgradeDb.oldVersion) {
         case 0:
           const restaurantStore = upgradeDb.createObjectStore('restaurants', {
             keyPath: 'id'
           });
           const masterStore = upgradeDb.createObjectStore('master');
+          const reviewStore = upgradeDb.createObjectStore('pendingreviews', {
+            autoIncrement : true, keyPath: 'id'
+          });
       }
     })
-    // See if all restaurants have been saved
+  }
+
+
+  /**
+   * Fetch all restaurants.
+   */
+  static fetchRestaurants(callback) {
+    // Open or generate db
+    const dbPromise = DBHelper.openIDB();
+    // Check if all restaurants have already been saved
     dbPromise.then(function(db) {
       var tx = db.transaction('master');
       var keyValStore = tx.objectStore('master');
@@ -368,7 +376,6 @@ class DBHelper {
       xhr.onload = () => {
         if (xhr.status === 200) { // Got a success response from server!
           const restaurants = JSON.parse(xhr.responseText);
-
           dbPromise.then(db => {
             const tx = db.transaction('restaurants','readwrite');
             const restaurantStore = tx.objectStore('restaurants');
@@ -376,12 +383,12 @@ class DBHelper {
               restaurantStore.put(restaurant);
             })
           });
+          // Mark in IDB that all restaurants have been retrieved
           dbPromise.then(db => {
             const tx = db.transaction('master','readwrite');
             const masterStore = tx.objectStore('master');
             masterStore.put("saved", "all_restaurants");
           });
-
           callback(null, restaurants);
         } else { // Oops!. Got an error from server.
           const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -406,22 +413,14 @@ class DBHelper {
    */
   static fetchRestaurantById(id, callback) {
     // Open or generate db
-    let dbPromise = idb.open('restaurantIDB', 1, function (upgradeDb) {
-      switch (upgradeDb.oldVersion) {
-        case 0:
-          const restaurantStore = upgradeDb.createObjectStore('restaurants', {
-            keyPath: 'id'
-          });
-          const masterStore = upgradeDb.createObjectStore('master');
-      }
-    })
-    console.log("DB open, about to fetch: ", id);
+    const dbPromise = DBHelper.openIDB();
+    // console.log("DB open, about to fetch: ", id);
     // Try to get our restaurant from the db:
     dbPromise.then(db => {
       return db.transaction('restaurants')
         .objectStore('restaurants').get(parseInt(id));
     }).then(obj => {
-      console.log("get id from db returned: ", obj);
+      // console.log("get id from db returned: ", obj);
       if (obj === undefined) {
         // Failed to find restaurant {id} from the db => get it
         let xhr = new XMLHttpRequest();
@@ -429,13 +428,20 @@ class DBHelper {
         xhr.onload = () => {
           if (xhr.status === 200) { // Got a success response from server!
             const restaurant = JSON.parse(xhr.responseText);
-            // Save it to the db:
-            dbPromise.then(db => {
-              const tx = db.transaction('restaurants','readwrite');
-              const restaurantStore = tx.objectStore('restaurants');
-              restaurantStore.put(restaurant);
+            // Get the reviews too:
+            DBHelper.fetchReviewsFromServer(id, (error, reviews) => {
+              if (reviews) {
+                restaurant.reviews = reviews;
+                // Save it to the db:
+                dbPromise.then(db => {
+                  const tx = db.transaction('restaurants','readwrite');
+                  const restaurantStore = tx.objectStore('restaurants');
+                  restaurantStore.put(restaurant);
+                });
+                callback(null, restaurant);
+              }
+              if (error) callback(error, null);
             });
-            callback(null, restaurant);
           } else { // Oops!. Got an error from server.
             const error = (`Request failed. Returned status of ${xhr.status}`);
             callback(error, null);
@@ -443,9 +449,47 @@ class DBHelper {
         };
         xhr.send();
       } else {
-        callback(null,obj)
+        // Does IDB have reviews for this restaurant?
+        if (obj.reviews === undefined) {
+          DBHelper.fetchReviewsFromServer(id, (error, reviews) => {
+            if (reviews) {
+              // console.log("Fetched reviews: ", reviews);
+              obj.reviews = reviews;
+              // Save restaurant with reviews to IDB:
+              dbPromise.then(db => {
+                const tx = db.transaction('restaurants','readwrite');
+                const restaurantStore = tx.objectStore('restaurants');
+                restaurantStore.put(obj);
+              });
+
+            }
+            if (error) callback(error,null);
+            else callback(null,obj);
+          });
+        } else {
+          // console.log("Reviews already available - fetchRestaurantById returning object: ", obj);
+          callback(null,obj);
+        }
+        // TODO: Consider appending pendingreviews for this restaurant
+        // (Not posted to server, not in IDB)
       }
     })
+  }
+
+  /**
+   * Fetch reviews from server.
+   */
+  static fetchReviewsFromServer(id, callback) {
+    fetch(`http://localhost:1337/reviews/?restaurant_id=${id}`)
+    .then(response => {
+      return response.json();
+    })
+    .then(jsonData => {
+      callback(null, jsonData);
+    })
+    .catch(error => {
+      callback(error, null);
+    });
   }
 
   /**
@@ -453,22 +497,14 @@ class DBHelper {
    */
   static putRestaurantFavorite(id, newState, callback) {
     // Open or generate db
-    let dbPromise = idb.open('restaurantIDB', 1, function (upgradeDb) {
-      switch (upgradeDb.oldVersion) {
-        case 0:
-          const restaurantStore = upgradeDb.createObjectStore('restaurants', {
-            keyPath: 'id'
-          });
-          const masterStore = upgradeDb.createObjectStore('master');
-      }
-    })
-    console.log("DB open, about to fetch restaurant: ", id);
+    const dbPromise = DBHelper.openIDB();
+    // console.log("DB open, about to fetch restaurant: ", id);
     // Try to get our restaurant from the db:
     dbPromise.then(db => {
       return db.transaction('restaurants')
         .objectStore('restaurants').get(parseInt(id));
     }).then(obj => {
-      console.log("get id from db returned: ", obj);
+      // console.log("get id from db returned: ", obj);
       if (obj === undefined) {
         // Failed to find restaurant {id} from the db => get it from server
         let xhr = new XMLHttpRequest();
@@ -495,18 +531,18 @@ class DBHelper {
         dbPromise.then(db => {
           const tx = db.transaction('restaurants','readwrite');
           const restaurantStore = tx.objectStore('restaurants');
-          console.log("putting obj to db: ", obj);
+          // console.log("putting obj to db: ", obj);
           restaurantStore.put(obj);
           return restaurantStore.complete;
         }).catch(function(err) {
-          console.log('changing is_favorite to indexed_db failed, returned:', err)
+          console.error('changing is_favorite to indexed_db failed, returned:', err)
         });
       }
       let xhr = new XMLHttpRequest();
       xhr.open('PUT', DBHelper.DATABASE_URL + `/${id}/?is_favorite=${newState}`);
       xhr.onload = () => {
         if (xhr.status === 200) { // Got a success response from server!
-          console.log("Updated is_favorite PUT successful.");
+          // console.log("Updated is_favorite PUT successful.");
         } else { // Oops!. Got an error from server.
           const error = (`is_favorite PUT request failed. Returned status of ${xhr.status}`);
           console.error(error);
@@ -515,8 +551,6 @@ class DBHelper {
       xhr.send();
     })
   }
-
-
 
   /**
    * Fetch restaurants by a cuisine type with proper error handling.
@@ -606,6 +640,119 @@ class DBHelper {
       }
     });
   }
+
+  /**
+   * Post new restaurant review
+   */
+   static postReview(newReview) {
+     const dbPromise = DBHelper.openIDB();
+    // XMLHttpRequest POST Based on: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:1337/reviews/');
+    xhr.onreadystatechange = () => {
+      // console.log("postReview onreadystatechange readyState", xhr.readyState, "status", xhr.status);
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        if (xhr.status == 201) { // Got a success response from server!
+          // console.log("POST appears successful.");
+          // Re-sync reviews from server to IDB
+          DBHelper.reSyncReviews(newReview.restaurant_id);
+        } else { // http POST unsuccessful
+          const error = (`Review post failed (possibly offline?). Returned status of ${xhr.status}`);
+          console.log(error);
+          // Add to pending-reviews IDB
+          dbPromise.then(db => {
+            const tx = db.transaction('pendingreviews','readwrite');
+            const reviewStore = tx.objectStore('pendingreviews');
+            reviewStore.put(newReview);
+          });
+          // Sync request adapted from: https://developers.google.com/web/updates/2015/12/background-sync
+          navigator.serviceWorker.ready.then(function(swRegistration) {
+            // console.log("Registering sync event now!");
+            return swRegistration.sync.register('review');
+          });
+        }
+      }
+    };
+    // console.log("Posting: ", newReview);
+    xhr.send(JSON.stringify(newReview));
+  }
+
+  /**
+   * Post offline reviews.
+   */
+   static postOfflineReviews() {
+     return new Promise((resolve,reject) => {
+       // Open or generate db
+       const dbPromise = DBHelper.openIDB();
+       dbPromise.then(db => {
+         return db.transaction('pendingreviews')
+           .objectStore('pendingreviews').getAll();
+       }).then(reviews => {
+         return Promise.all(
+           reviews.map(review => {
+             // The 'review' object has an extra 'id' from IDB, which has to be removed before posting
+             // Otherwise it will override the id on the server.
+             const postReview = {
+               "restaurant_id": review.restaurant_id,
+               "name": review.name,
+               "rating": review.rating,
+               "comments": review.comments
+             };
+             // console.log("Pending review from IDB: ", postReview);
+             fetch('http://localhost:1337/reviews/', {
+               method: 'POST',
+               mode: "cors",
+               body: JSON.stringify(postReview)
+             })
+             .then(response => {
+               // console.log("Success - deleting review from pending: ", review);
+               // Delete review from pending
+               dbPromise.then(db => {
+                 const tx = db.transaction('pendingreviews', 'readwrite');
+                 tx.objectStore('pendingreviews').delete(review.id);
+               });
+               // Re-sync reviews from server to IDB
+               DBHelper.reSyncReviews(review.restaurant_id);
+             })
+             .catch(error => {
+               console.log('Posting of offline reviews failed (still offline?) code: ', error);
+               reject(error);
+             });
+           })
+         ).then(obj => {
+           console.log("Everything done now: ", obj);
+         });
+       });
+     });
+   }
+
+   /**
+    * Re-sync reviews from server for a restaurant
+    */
+   static reSyncReviews(id) {
+     const dbPromise = DBHelper.openIDB();
+     // Re-sync reviews from server to IDB
+     dbPromise.then(db => {
+       return db.transaction('restaurants')
+         .objectStore('restaurants').get(id);
+     }).then(obj => {
+       if (obj != undefined) { // Got the restaurant
+           DBHelper.fetchReviewsFromServer(id, (error, reviews) => {
+             if (reviews) {
+               // console.log("Fetched reviews: ", reviews);
+               obj.reviews = reviews;
+               // Save restaurant with updated reviews to IDB:
+               dbPromise.then(db => {
+                 const tx = db.transaction('restaurants','readwrite');
+                 const restaurantStore = tx.objectStore('restaurants');
+                 restaurantStore.put(obj);
+               });
+             }
+             if (error) console.error(error);
+           });
+         }
+     });
+   }
 
   /**
    * Restaurant page URL.
