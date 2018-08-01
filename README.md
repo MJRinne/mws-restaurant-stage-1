@@ -2,7 +2,7 @@
 ---
 ## Overview
 
-This repository contains my project work for [Udacity's](https://eu.udacity.com/) Mobile Web Specialist Certification Course. The master-branch currently contains my code for phase 2 review of the project.
+This repository contains my project work for [Udacity's](https://eu.udacity.com/) Mobile Web Specialist Certification Course. The master-branch currently contains my code for phase 3 review of the project.
 
 ## Inserting the Google Maps API key
 
@@ -14,7 +14,7 @@ Replace the string with a valid Google Maps API key for testing. Note that if yo
 
 ## Running the server
 
-This web application fetches data from a local sail server. The code for the server is available [via this link](https://github.com/udacity/mws-restaurant-stage-2/tree/master/api).
+This web application fetches data from a local sail server. The code and instructions for the server are available [via this link](https://github.com/udacity/mws-restaurant-stage-3).
 
 ## Instructions for [gulp](https://gulpjs.org/)
 
@@ -28,7 +28,7 @@ The different gulp plugins used in the process are included in `package.json` an
 
 There are three main operations defined for gulp:
 
-1. Setup the unoptimized web-app to run from the src-directory:
+1. Process styles from sass to css (in the src-directory):
 `$ gulp styles-src`
 
 1. Package the scripts and css to the dist-subdirectory:
@@ -42,8 +42,13 @@ There are three main operations defined for gulp:
 To run the fully functional and optimized restaurant web-app:
 
 1. Insert the Google Maps API key as instructed above
-1. Run the sail server as instructed above.
+1. Run the [sail server](https://github.com/udacity/mws-restaurant-stage-3).
+1. `$ npm i`
+1. `$ gulp styles-src`
 1. `$ gulp to-dist`
 1. `$ gulp to-root`
 1. Run a python server from the project root: `$ python3 -m http.server 8000`
 1. Open: `localhost:8000` on a browser
+
+To run the unoptimized code from the `src` directory, `gulp to-dist` and `gulp to-root` can be skipped and the python server
+should be started from `src`-directory: `src$ python3 -m http.server 8000`.
