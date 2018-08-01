@@ -92,9 +92,10 @@ self.addEventListener('sync', function(event) {
   if (event.tag == 'review') {
     event.waitUntil(
       DBHelper.postOfflineReviews()
-      .catch(err => {
-        // console.log("sw / sync caught: ", err);
-      })
+      // Appears that catching this error prevents sync from re-scheduling?
+      // .catch(err => {
+      //   console.log("sw / sync caught: ", err);
+      // })
     );
   }
 });
