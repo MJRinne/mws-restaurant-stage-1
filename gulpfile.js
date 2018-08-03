@@ -108,13 +108,13 @@ gulp.task('copy-css-root', function() {
 });
 
 gulp.task('copy-img-root', function() {
-	return gulp.src('src/img/*.jpg')
+	return gulp.src('src/img/*.webp')
     // .pipe(webp({quality: 40, method: 6}))
 		.pipe(gulp.dest('./img'));
 });
 
 gulp.task('copy-img-converted-root', function() {
-	return gulp.src('src/img_converted/*.jpg')
+	return gulp.src('src/img_converted/*.webp')
     // .pipe(webp({quality: 40, method: 6}))
 		.pipe(gulp.dest('./img_converted'));
 });
