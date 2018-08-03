@@ -803,7 +803,7 @@ class DBHelper {
    * Restaurant image alt text.
    */
   static altTextForRestaurantImage(restaurant) {
-    return (`${restaurant.name}`);
+    return (`An image of ${restaurant.name}`);
     // return (`${restaurant.alt}`);
   }
 
