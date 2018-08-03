@@ -470,8 +470,6 @@ class DBHelper {
           // console.log("Reviews already available - fetchRestaurantById returning object: ", obj);
           callback(null,obj);
         }
-        // TODO: Consider appending pendingreviews for this restaurant
-        // (Not posted to server, not in IDB)
       }
     })
   }
@@ -660,6 +658,7 @@ class DBHelper {
           const error = (`Review post failed (possibly offline?). Returned status of ${xhr.status}`);
           console.log(error);
           // Add to pending-reviews IDB
+          newReview.updatedAt = new Date().toString(); // Will be replaced by server when posted
           dbPromise.then(db => {
             const tx = db.transaction('pendingreviews','readwrite');
             const reviewStore = tx.objectStore('pendingreviews');
@@ -670,12 +669,32 @@ class DBHelper {
             // console.log("Registering sync event now!");
             return swRegistration.sync.register('review');
           });
+          DBHelper.showNotification('Offline', { body: 'Review saved for posting later when back online.' });
         }
       }
     };
     // console.log("Posting: ", newReview);
     xhr.send(JSON.stringify(newReview));
   }
+
+  /**
+   * Get pending reviews from IDB
+   */
+   static getPendingReviews(restaurantId, callback) {
+     let result = [];
+     const dbPromise = DBHelper.openIDB();
+     dbPromise.then(db => {
+       return db.transaction('pendingreviews')
+         .objectStore('pendingreviews').getAll();
+     }).then(reviews => {
+       reviews.forEach(function (review) {
+         if (review.restaurant_id == restaurantId) result.push(review);
+       })
+       return result;
+     }).then(selectedReviews => {
+       callback(result);
+     });
+   }
 
   /**
    * Post offline reviews.
@@ -691,7 +710,7 @@ class DBHelper {
          return Promise.all(
            reviews.map(review => {
              // The 'review' object has an extra 'id' from IDB, which has to be removed before posting
-             // Otherwise it will override the id on the server.
+             // Otherwise it will override the id assigned by the server.
              const postReview = {
                "restaurant_id": review.restaurant_id,
                "name": review.name,
@@ -713,6 +732,8 @@ class DBHelper {
                });
                // Re-sync reviews from server to IDB
                DBHelper.reSyncReviews(review.restaurant_id);
+               DBHelper.showNotification('Back online', { body: 'Pending review successfully posted.',
+                                                          tag: 'reviewPosted'});
              })
              .catch(error => {
                // console.log('Posting of offline reviews failed (still offline?) code: ', error);
@@ -798,6 +819,35 @@ class DBHelper {
       animation: google.maps.Animation.DROP}
     );
     return marker;
+  }
+
+  /**
+   * Post notification for the user
+   *
+   * Based on the sample in:
+   * https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
+   */
+  static showNotification(notifTitle, notifBody) {
+    // Note: This blows up in a service worker ('window' not defined)
+    // Should be prepended by another method of checking, whether running in a service worker,
+    // but currently old-fashioned alerts are not a requirement - skip for now.
+    // // Check browser support
+    // if (!("Notification" in window)) {
+    //   // No support - post an old-fashioned alert
+    //   alert(notifTitle + '. ' + notifBody.body);
+    // }
+    // Permission granted?
+    if (Notification.permission === "granted") {
+      var notification = new Notification(notifTitle, notifBody);
+    }
+    // Not granted. Denied?
+    else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function (permission) {
+        if (permission === "granted") {
+          var notification = new Notification(notifTitle, notifBody);
+        }
+      });
+    }
   }
 
 }
