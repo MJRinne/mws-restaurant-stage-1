@@ -29,9 +29,10 @@ self.addEventListener('install', function(event) {
           'js/dbhelper.js',
           'js/swhelper.js',
           'js/main.js',
-          'js/restaurant_info.js',
-          'img/',
-          'img_converted/'
+          'js/restaurant_info.js'
+          // ,
+          // 'img/',
+          // 'img_converted/'
         ]);
       })
   );

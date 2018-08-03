@@ -26,9 +26,10 @@ self.addEventListener('install', function(event) {
           'css/index.css',
           'css/restaurant.css',
           'js/index.js',
-          'js/restaurant.js',
-          'img/',
-          'img_converted/'
+          'js/restaurant.js'
+          // ,
+          // 'img/',
+          // 'img_converted/'
         ]);
       })
   );

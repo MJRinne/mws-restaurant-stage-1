@@ -11,18 +11,17 @@
  * https://stackoverflow.com/questions/38886840/how-to-solve-this-minification-error-on-gulp
  * https://www.npmjs.com/package/gulp-uglify-es
  * https://gulpjs.org/api
- * https://www.npmjs.com/package/gulp-inject
+ * (https://www.npmjs.com/package/gulp-inject)
+ * https://www.npmjs.com/package/gulp-webp
  */
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-// var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
 var htmlmin = require('gulp-htmlmin');
-// var inject = require('gulp-inject');
 var uglify = require('gulp-uglify-es').default;
-// var sourcemaps = require('gulp-sourcemaps');
+// var webp = require('gulp-webp');
 
 
 gulp.task('default', defaultTask);
@@ -31,22 +30,6 @@ function defaultTask(done) {
   // place code for your default task here
   done();
 }
-
-//
-// gulp.task('to-root',
-// 	['copy-html-root',
-//   'copy-js-root',
-//   'copy-swjs-root',
-//   'copy-css-root',
-//   'copy-img-root',
-//   'copy-img-converted-root'], defaultTask);
-
-
-// gulp.task('scripts', function() {
-// 	return gulp.src('src/js/**/*.js')
-// 		.pipe(concat('all.js'))
-// 		.pipe(gulp.dest('dist/js'));
-// });
 
 gulp.task('scripts-index', function() {
 	return gulp.src(['src/js/**/dbhelper.js', 'src/js/**/main.js', 'src/js/**/swhelper.js'])
@@ -126,24 +109,15 @@ gulp.task('copy-css-root', function() {
 
 gulp.task('copy-img-root', function() {
 	return gulp.src('src/img/*.jpg')
+    // .pipe(webp({quality: 40, method: 6}))
 		.pipe(gulp.dest('./img'));
 });
 
 gulp.task('copy-img-converted-root', function() {
 	return gulp.src('src/img_converted/*.jpg')
+    // .pipe(webp({quality: 40, method: 6}))
 		.pipe(gulp.dest('./img_converted'));
 });
-
-
-
-// gulp.task('inject', function () {
-//   var target = gulp.src('./index.html');
-//   // It's not necessary to read the files (will speed up things), we're only after their paths:
-//   var sources = gulp.src(['./src/**/*.js', './src/**/*.css'], {read: false});
-//
-//   return target.pipe(inject(sources))
-//     .pipe(gulp.dest('.'));
-// });
 
 gulp.task('to-dist', gulp.series('scripts-index',
 'scripts-restaurant',

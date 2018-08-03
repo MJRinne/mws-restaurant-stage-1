@@ -786,7 +786,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}.jpg`);
+    return (`/img/${restaurant.photograph}.webp`);
   }
 
   /**
@@ -794,7 +794,7 @@ class DBHelper {
    */
   static smallImageUrlForRestaurant(restaurant) {
     // let smallFile = restaurant.photograph.slice(0, -4) + '-400w' + '.jpg';
-    let smallFile = restaurant.photograph + '-400w.jpg';
+    let smallFile = restaurant.photograph + '-400w.webp';
     return (`/img_converted/${smallFile}`);
   }
 
