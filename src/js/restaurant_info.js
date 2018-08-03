@@ -133,7 +133,6 @@ const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   title.innerHTML = 'Reviews';
   container.appendChild(title);
 
-  console.log("Reviews1", reviews);
   DBHelper.getPendingReviews(self.restaurant.id,pendingReviews => {
     reviews.push.apply(reviews, pendingReviews); // https://stackoverflow.com/a/1374131/5528498
 
