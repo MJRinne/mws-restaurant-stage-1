@@ -732,8 +732,8 @@ class DBHelper {
                });
                // Re-sync reviews from server to IDB
                DBHelper.reSyncReviews(review.restaurant_id);
-               DBHelper.showNotification('Back online', { body: 'Pending review successfully posted.',
-                                                          tag: 'reviewPosted'});
+               // Note: Not working from a service worker
+               // DBHelper.showNotification('Back online', { body: 'Pending review successfully posted.' } );
              })
              .catch(error => {
                // console.log('Posting of offline reviews failed (still offline?) code: ', error);
@@ -826,6 +826,8 @@ class DBHelper {
    *
    * Based on the sample in:
    * https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
+   * Fixed with information from:
+   *
    */
   static showNotification(notifTitle, notifBody) {
     // Note: This blows up in a service worker ('window' not defined)
